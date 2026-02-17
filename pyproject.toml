@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ragacc"
+version = "0.0.1"
+description = "A retrieval system with IVF cluster prefetching."
+authors = [
+    {name = "Chien-Yu Lin", email = "cyulin@cs.washington.edu"}
+]
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
