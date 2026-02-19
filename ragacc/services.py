@@ -459,7 +459,7 @@ def start_and_register_all_services(config, args):
 
     # Start RAG services with Popen
     async def start_rag_service(i, cfg):
-        time.sleep(20 * i)  # stagger the startups
+        time.sleep(40 * i)  # stagger the startups
         subprocess.Popen(
             construct_rag_service_cmd(cfg, args),
             env=add_env({'CUDA_VISIBLE_DEVICES': cfg['llm_gpu_id']}),
