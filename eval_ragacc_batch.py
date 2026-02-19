@@ -70,11 +70,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     evaluator = RagAccEvaluator(args)
-    # evaluator.evaluate(args, budget=args.prefetch_budget, spec_branch=args.enable_speculative_branch)
 
     pipeline_list = ["linear", "parallel", "iterative", "iterretgen", "flare", "selfrag"]
     dataset_list = ["hotpotqa", "triviaqa", "nq"]
-    # nprobe_list = [128, 256, 512]
+    dataset_list = ["nq"]
     nprobe_list = [256]
     batch_size_list = [1, 2, 4, 8]
     cache_fraction_list = [0.0]

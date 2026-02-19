@@ -24,7 +24,7 @@ python3 eval_ragacc_batch.py \
     --data-dir /data/rag_data/rag_output \
     --model-path /hf_models/${MODEL} \
     --tokenizer-model-path /hf_models/${MODEL} \
-    --log-dir evaluation/h100/llama_8b \
+    --log-dir evaluation/h100/llama_8b_batch \
     --mem-fraction-static 0.4 \
     --topk ${TOPK} \
     --nprobe ${NPROBE} \

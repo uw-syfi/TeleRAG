@@ -42,3 +42,10 @@ You may use `Ctrl+b` and `d` to detach from the tmux session. If you want to rea
 tmux attach
 ```
 
+### Run Experiments
+
+#### Potential Problems
+
+- AttributeError: 'RAGAcc' object has no attribute 'llm_service_addr'
+- RuntimeError: No CUDA GPUs are available
+

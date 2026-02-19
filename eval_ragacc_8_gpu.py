@@ -110,7 +110,7 @@ if __name__ == "__main__":
     pipeline_list = ["linear", "parallel", "iterative", "iterretgen", "flare", "selfrag"]
     dataset_list = ["hotpotqa", "triviaqa", "nq"]
     nprobe_list = [256]
-    cache_fraction_list = [0.0, 0.5]
+    cache_fraction_list = [0.5]
 
     for dataset in dataset_list:
         for pipeline in pipeline_list:

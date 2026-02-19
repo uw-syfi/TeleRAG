@@ -1,20 +1,15 @@
 #!/bin/bash
 
-if [ "$1" == "" ]; then
-    echo "Usage: $0 <index_type>"
-    exit 1
-fi
-
 INDEX_TYPE=$1
 
 PREFETCH_METHOD=gradual
 
 NPROBE=256
 TOPK=3
-VM_SIZE=12
-N_SAMPLES=1024
+VM_SIZE=24
+N_SAMPLES=512
 N_RUNS=5
-MODEL=Mistral-Small-22B
+MODEL=Meta-Llama-3-8B-Instruct 
 
 echo "Index type: ${INDEX_TYPE}"
 echo "Nprobe: ${NPROBE}"
@@ -25,9 +20,8 @@ python3 eval_ragacc_batch.py \
     --data-dir /data/rag_data/rag_output \
     --model-path /hf_models/${MODEL} \
     --tokenizer-model-path /hf_models/${MODEL} \
-    --budget-type 22b \
-    --log-dir evaluation/h100/mistral_22b_batch \
-    --mem-fraction-static 0.65 \
+    --log-dir evaluation/h200/llama_8b_4_gpu_no_schedule \
+    --mem-fraction-static 0.35 \
     --topk ${TOPK} \
     --nprobe ${NPROBE} \
     --index-type ${INDEX_TYPE} \
@@ -35,9 +29,9 @@ python3 eval_ragacc_batch.py \
     --prefetch-strategy ${PREFETCH_METHOD} \
     --num-samples ${N_SAMPLES} \
     --batch-strategy naive \
-    --mini-batch-strategy greedy \
+    --mini-batch-strategy naive \
     --batch-size 128 \
     --mini-batch-size 4 \
     --multi-gpu \
-    --num-gpu 1 \
+    --num-gpu 4 \
     --profile
