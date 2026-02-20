@@ -20,7 +20,7 @@ python3 eval_ragacc_4_gpu_nq.py \
     --data-dir /data/rag_data/rag_output \
     --model-path /hf_models/${MODEL} \
     --tokenizer-model-path /hf_models/${MODEL} \
-    --log-dir evaluation/h200/llama_8b_4_gpu_no_schedule \
+    --log-dir evaluation/h200/llama_8b_4_gpu_prefetch_only \
     --mem-fraction-static 0.35 \
     --topk ${TOPK} \
     --nprobe ${NPROBE} \
@@ -29,9 +29,10 @@ python3 eval_ragacc_4_gpu_nq.py \
     --prefetch-strategy ${PREFETCH_METHOD} \
     --num-samples ${N_SAMPLES} \
     --batch-strategy naive \
-    --mini-batch-strategy naive \
+    --mini-batch-strategy greedy \
     --batch-size 128 \
     --mini-batch-size 4 \
     --multi-gpu \
     --num-gpu 4 \
+    --no-cache-schedule \
     --profile

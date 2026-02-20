@@ -72,7 +72,6 @@ if __name__ == "__main__":
     evaluator = RagAccEvaluator(args)
 
     pipeline_list = ["linear", "parallel", "iterative", "iterretgen", "flare", "selfrag"]
-    dataset_list = ["hotpotqa", "triviaqa", "nq"]
     dataset_list = ["nq"]
     nprobe_list = [256]
     batch_size_list = [1, 2, 4, 8]

@@ -17,7 +17,7 @@ echo "Prefetch method: ${PREFETCH_METHOD}"
 
 for NUM_GPU in 8 4 2 1; do
     echo "Num GPU: ${NUM_GPU}"
-    python3 eval_ragacc_batch.py \
+    python3 eval_ragacc_8_gpu.py \
         --emb-model facebook/contriever-msmarco \
         --data-dir /data/rag_data/rag_output \
         --model-path /hf_models/${MODEL} \

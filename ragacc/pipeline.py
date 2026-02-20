@@ -435,7 +435,7 @@ class Pipeline:
                 mini_batch_t = time.time() - t0
             if (args.cache_fraction > SMALL_NUMBER and
                     args.mini_batch_strategy == "greedy" and
-                    args.no_cache_scheudle is False):
+                    args.no_cache_schedule is False):
                 if args.multi_gpu:
                     if profile_overlap:
                         mini_batch_requests, schedule_cache_sim_time, \

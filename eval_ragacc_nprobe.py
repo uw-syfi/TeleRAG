@@ -7,7 +7,7 @@ rag_configs = [
     {
         'numa_node': 0,
         'service_port': 29001,
-        'retrieval_port': 29102,
+        'retrieval_port': 29002,
         'llm_port': 29003,
         'retrieval_gpu_id': 0,
         'llm_gpu_id': 0,
@@ -23,7 +23,7 @@ rag_configs = [
         'nccl_port': 29014,
     },
     {
-        'numa_node': 0,
+        'numa_node': 1,
         'service_port': 29021,
         'retrieval_port': 29022,
         'llm_port': 29023,
@@ -32,7 +32,7 @@ rag_configs = [
         'nccl_port': 29024,
     },
     {
-        'numa_node': 0,
+        'numa_node': 1,
         'service_port': 29031,
         'retrieval_port': 29032,
         'llm_port': 29033,
@@ -40,42 +40,6 @@ rag_configs = [
         'llm_gpu_id': 3,
         'nccl_port': 29034,
     },
-    {
-        'numa_node': 1,
-        'service_port': 29041,
-        'retrieval_port': 29042,
-        'llm_port': 29043,
-        'retrieval_gpu_id': 4,
-        'llm_gpu_id': 4,
-        'nccl_port': 29044,
-    },
-    {
-        'numa_node': 1,
-        'service_port': 29051,
-        'retrieval_port': 29052,
-        'llm_port': 29053,
-        'retrieval_gpu_id': 5,
-        'llm_gpu_id': 5,
-        'nccl_port': 29054,
-    },
-    {
-        'numa_node': 1,
-        'service_port': 29061,
-        'retrieval_port': 29062,
-        'llm_port': 29063,
-        'retrieval_gpu_id': 6,
-        'llm_gpu_id': 6,
-        'nccl_port': 29064,
-    },
-    {
-        'numa_node': 1,
-        'service_port': 29071,
-        'retrieval_port': 29072,
-        'llm_port': 29073,
-        'retrieval_gpu_id': 7,
-        'llm_gpu_id': 7,
-        'nccl_port': 29074,
-    }
 ]
 
 def choose_gpu(num_gpu: int):
@@ -108,9 +72,10 @@ if __name__ == "__main__":
     evaluator = RagAccEvaluator(args)
 
     pipeline_list = ["linear", "parallel", "iterative", "iterretgen", "flare", "selfrag"]
-    dataset_list = ["hotpotqa", "triviaqa", "nq"]
-    nprobe_list = [256]
-    cache_fraction_list = [0.0, 0.5]
+    dataset_list = ["nq"]
+    nprobe_list = [128, 256, 512]
+    batch_size_list = [1, 2, 4, 8]
+    cache_fraction_list = [0.0]
 
     for dataset in dataset_list:
         for pipeline in pipeline_list:
@@ -126,9 +91,12 @@ if __name__ == "__main__":
 
                 for cache_fraction in cache_fraction_list:
                     args.cache_fraction = cache_fraction
-                    evaluator.evaluate(
-                        args, args.prefetch_budget, args.batch_size,
-                        args.mini_batch_size,
-                    )
+                    for batch_size in batch_size_list:
+                        args.batch_size = batch_size
+                        args.mini_batch_size = batch_size
+                        evaluator.evaluate(
+                            args, args.prefetch_budget, args.batch_size,
+                            args.mini_batch_size,
+                        )
 
     evaluator.shutdown()

@@ -4,6 +4,16 @@
 
 ### Prerequisites
 
+#### Models
+
+Please make sure the models are placed in a directory, for example `/data/hf_models`.
+
+You should download the following models at the following paths:
+
+- `llama3/Meta-Llama-3-8B-Instruct-hf` at `llama3/Meta-Llama-3-8B-Instruct-hf`.
+- `llama3/Meta-Llama-3.2-3B-Instruct` at `llama3/Meta-Llama-3.2-3B-Instruct`.
+- `mistralai/Mistral-Small-22B` at `Mistral-Small-22B`.
+
 TODO: docs on how to set up wiki_dpr and rag_data.
 
 ### Install with Docker
@@ -18,10 +28,10 @@ This will build a docker image named `telerag`.
 
 ### Run with Docker
 
-To start a container, run this: (replace `/path/to/rag_data` and `/path/to/wiki_dpr` with the paths to your rag_data and wiki_dpr directories)
+To start a container, run this at the root directory of the repository: (replace `/path/to/hf_models`, `/path/to/rag_data` and `/path/to/wiki_dpr` with the paths to your hf_models, rag_data and wiki_dpr directories)
 
 ```
-docker run --gpus all --cap-add=SYS_NICE -d -it   --name telerag-ae   -v "$(pwd)":/app -v /data:/hf_models -v /path/to/rag_data:/data/rag_data -v /path/to/wiki_dpr:/data/wiki_dpr telerag:latest
+docker run --gpus all --cap-add=SYS_NICE -d -it   --name telerag-ae   -v "$(pwd)":/app -v /path/to/hf_models:/hf_models -v /path/to/rag_data:/data/rag_data -v /path/to/wiki_dpr:/data/wiki_dpr telerag:latest
 ```
 
 This will start a container named `telerag-ae`.
