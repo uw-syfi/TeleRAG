@@ -74,7 +74,7 @@ if __name__ == "__main__":
     pipeline_list = ["linear", "parallel", "iterative", "iterretgen", "flare", "selfrag"]
     dataset_list = ["nq"]
     nprobe_list = [128, 256, 512]
-    batch_size_list = [1, 2, 4, 8]
+    batch_size_list = [1]
     cache_fraction_list = [0.0]
 
     for dataset in dataset_list:
