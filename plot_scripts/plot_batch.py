@@ -17,7 +17,7 @@ colors = [
     ['#b32414', '#de6000'],
 ]
 pipeline = ['HyDE', 'SubQ', 'Iter', 'IRG', 'FLARE', 'S-RAG', 'Avg']
-SYS_NAME = 'RAGInfer'
+SYS_NAME = 'TeleRAG'
 
 def plot_double_parameters(ax, data1, data2, name, show_left_label=True, show_right_label=True, show_legend=True, data_type='throughput'):
     ind = np.array([1])

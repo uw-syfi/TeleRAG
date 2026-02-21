@@ -90,7 +90,8 @@ h200_llama_8b_8_gpu: evaluation/h200/llama_8b_8_gpu/nq_ragacc_mini_greedy_topk_3
 plot_multi_gpu_8b: figure/h200_multi_gpu_nq_8b.pdf \
                    figure/h200_multi_gpu_hotpotqa_8b.pdf \
                    figure/h200_multi_gpu_triviaqa_8b.pdf \
-                   figure/h200_throughput_nq_8b.pdf
+                   figure/h200_throughput_nq_8b.pdf \
+                   figure/rag_schedule_overhead.pdf
 h200_llama_8b_4_gpu_no_schedule: evaluation/h200/llama_8b_4_gpu_no_schedule/nq_ragacc_topk_3_ndata_512.csv
 h200_llama_8b_4_gpu_prefetch_only: evaluation/h200/llama_8b_4_gpu_prefetch_only/nq_ragacc_mini_greedy_topk_3_ndata_512.csv
 
@@ -115,6 +116,17 @@ figure/h200_multi_gpu_triviaqa_8b.pdf: evaluation/h200/llama_8b_8_gpu/triviaqa_r
 figure/h200_throughput_nq_8b.pdf: evaluation/h200/llama_8b_8_gpu/nq_ragacc_mini_greedy_topk_3_ndata_512.csv plot_scripts/plot_h200_throughput_cache.py
 	@mkdir -p $(@D)
 	python3 plot_scripts/plot_h200_throughput_cache.py --csv evaluation/h200/llama_8b_8_gpu/nq_ragacc_mini_greedy_topk_3_ndata_512.csv --output $@
+	
+figure/rag_schedule_overhead.pdf: evaluation/h200/llama_8b_4_gpu_no_schedule/nq_ragacc_topk_3_ndata_512.csv \
+                                  evaluation/h200/llama_8b_4_gpu_prefetch_only/nq_ragacc_mini_greedy_topk_3_ndata_512.csv \
+                                  evaluation/h200/llama_8b_8_gpu/nq_ragacc_mini_greedy_topk_3_ndata_512.csv \
+                                  plot_scripts/plot_h200_schedule_overhead.py
+	@mkdir -p $(@D)
+	python3 plot_scripts/plot_h200_schedule_overhead.py \
+		--no_schedule evaluation/h200/llama_8b_4_gpu_no_schedule/nq_ragacc_topk_3_ndata_512.csv \
+		--prefetch_only evaluation/h200/llama_8b_4_gpu_prefetch_only/nq_ragacc_mini_greedy_topk_3_ndata_512.csv \
+		--with_cache evaluation/h200/llama_8b_8_gpu/nq_ragacc_mini_greedy_topk_3_ndata_512.csv \
+		--output $@
 	
 evaluation/h200/llama_8b_4_gpu_no_schedule/nq_ragacc_topk_3_ndata_512.csv: artifact_evaluation/h200/llama_8b_4_gpu_no_schedule.sh
 	@mkdir -p $(@D)

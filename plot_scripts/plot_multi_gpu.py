@@ -17,7 +17,7 @@ colors = [
     ['#b32414', '#de6000'],
 ]
 pipeline = ['HyDE', 'SubQ', 'Iter', 'IRG', 'FLARE', 'S-RAG', 'Avg']
-SYS_NAME = 'RAGInfer'
+SYS_NAME = 'TeleRAG'
 
 
 def plot(ax, data, name, plot_type, show_y_label=True, show_legend=True):
