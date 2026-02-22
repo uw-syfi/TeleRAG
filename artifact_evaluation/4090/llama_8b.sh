@@ -25,7 +25,7 @@ python3 eval_ragacc_single.py \
     --model-path /hf_models/${MODEL} \
     --tokenizer-model-path /hf_models/${MODEL} \
     --log-dir evaluation/4090/llama_8b \
-    --mem-fraction-static 0.4 \
+    --mem-fraction-static 0.75 \
     --gpu-model rtx4090 \
     --topk ${TOPK} \
     --nprobe ${NPROBE} \

@@ -25,7 +25,7 @@ python3 eval_ragacc_nprobe.py \
     --model-path /hf_models/${MODEL} \
     --tokenizer-model-path /hf_models/${MODEL} \
     --log-dir evaluation/4090/llama_3b_nprobe \
-    --mem-fraction-static 0.4 \
+    --mem-fraction-static 0.5 \
     --gpu-model rtx4090 \
     --topk ${TOPK} \
     --nprobe ${NPROBE} \
