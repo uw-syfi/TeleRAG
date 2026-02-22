@@ -1,6 +1,3 @@
 [submodule "3rdparty/sglang"]
 	path = 3rdparty/sglang
 	url = https://github.com/cylinbao/sglang.git
-[submodule "3rdparty/FlashRAG"]
-	path = 3rdparty/FlashRAG
-	url = https://github.com/cylinbao/FlashRAG.git
