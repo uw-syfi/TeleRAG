@@ -59,7 +59,7 @@ def plot_double_parameters(ax, data1, data2, name, show_left_label=True, show_ri
 
 def plot_batch_parameters_v2(ax, data1, data2, name, show_left_label=True,
                              show_right_label=True, show_legend=True,
-                             data_type='throughput'):
+                             data_type='throughput', use_small_scale=False):
     width = 0.4
     x_pos = [i for i in range(len(data1))]
     hatches = ['/', '\\', 'x', '-', '+', '|']
@@ -98,9 +98,14 @@ def plot_batch_parameters_v2(ax, data1, data2, name, show_left_label=True,
     ax.set_xticks(x_pos)
     ax.set_xticklabels([str(2**i) for i in x_pos], fontsize=16, ha='center')
     if data_type == 'throughput':
-        ax.set_ylim([0, 12])
-        ax2.set_ylim([0, 3])
-        name_height = 12.3
+        if use_small_scale:
+            ax.set_ylim([0, 8.0])
+            ax2.set_ylim([0, 2.0])
+            name_height = 8.2
+        else:
+            ax.set_ylim([0, 12])
+            ax2.set_ylim([0, 3])
+            name_height = 12.3
         x_label = 'Batch Size'
     elif data_type == 'latency':
         ax.set_ylim([0, 5])
@@ -147,6 +152,19 @@ def plot_batch_figures_per_pipeline(faiss: list, ragacc: list, filename: str, da
     type_id = 3
     num_pipeline = 7
     fig, ax = plt.subplots(1, num_pipeline, figsize=(30, 4.5))
+
+    use_small_scale = False
+    if data_type == 'throughput':
+        max_throughput = 0
+        max_speedup = 0
+        for i in range(num_pipeline):
+            for j in range(len(faiss[i])):
+                max_throughput = max(max_throughput, faiss[i][j], ragacc[i][j])
+                if faiss[i][j] > 0:
+                    max_speedup = max(max_speedup, ragacc[i][j] / faiss[i][j])
+        if max_throughput <= 8 and max_speedup < 2.0:
+            use_small_scale = True
+
     def plot_one_figure(index):
         data1 = faiss[index]
         data2 = ragacc[index]
@@ -155,7 +173,7 @@ def plot_batch_figures_per_pipeline(faiss: list, ragacc: list, filename: str, da
         if data_type == 'multi-gpu':
             plot_double_parameters(ax[index], data2, None, pipeline[index], left, right, left, data_type=data_type)
         else:
-            plot_batch_parameters_v2(ax[index], data1, data2, pipeline[index], left, right, left, data_type=data_type)
+            plot_batch_parameters_v2(ax[index], data1, data2, pipeline[index], left, right, left, data_type=data_type, use_small_scale=use_small_scale)
     for i in range(num_pipeline):
         plot_one_figure(i)
     plt.subplots_adjust(wspace=0.4)
