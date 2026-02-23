@@ -5,7 +5,7 @@ PREFETCH_BUDGET_DICT_NQ_SMALL = {
         "iterative": 5.0,
         "iterretgen": 4.0,
         "flare": 6.0,
-        "selfrag": 3,
+        "selfrag": 3.0,
     },
     "rtx4090": {
         "linear": 7.0,
@@ -32,7 +32,7 @@ PREFETCH_BUDGET_DICT_HotpotQA_SMALL = {
         "iterative": 4.5,
         "iterretgen": 2.0,
         "flare": 2.5,
-        "selfrag": 3,
+        "selfrag": 3.0,
     }
 }
 
@@ -68,14 +68,14 @@ PREFETCH_BUDGET_DICT_NQ_LARGE = {
         "iterative": 5.0,
         "iterretgen": 4.0,
         "flare": 6.0,
-        "selfrag": 3,
+        "selfrag": 3.0,
     },
     "rtx4090": {
         "linear": 7.0,
         "parallel": 7.0,
         "iterative": 3,
         "iterretgen": 2.5,
-        "flare": 3,
+        "flare": 3.0,
         "selfrag": 1.25,
     }
 }
@@ -87,7 +87,7 @@ PREFETCH_BUDGET_DICT_HotpotQA_LARGE = {
         "iterative": 8.0,
         "iterretgen": 8.0,
         "flare": 9.0,
-        "selfrag": 7,
+        "selfrag": 7.0,
     },
     "rtx4090": {
         "linear": 7.0,
@@ -95,7 +95,7 @@ PREFETCH_BUDGET_DICT_HotpotQA_LARGE = {
         "iterative": 4.5,
         "iterretgen": 2.0,
         "flare": 2.5,
-        "selfrag": 3,
+        "selfrag": 3.0,
     }
 }
 
@@ -106,7 +106,7 @@ PREFETCH_BUDGET_DICT_TriviaQA_LARGE = {
         "iterative": 8.0,
         "iterretgen": 8.0,
         "flare": 6.5,
-        "selfrag": 7,
+        "selfrag": 7.0,
     },
     "rtx4090": {
         "linear": 7.0,
@@ -125,14 +125,14 @@ PREFETCH_BUDGET_DICT_NQ_LARGE = {
         "iterative": 5.0,
         "iterretgen": 4.0,
         "flare": 6.0,
-        "selfrag": 3,
+        "selfrag": 3.0,
     },
     "rtx4090": {
         "linear": 7.0,
         "parallel": 7.0,
         "iterative": 3,
         "iterretgen": 2.5,
-        "flare": 3,
+        "flare": 3.0,
         "selfrag": 1.25,
     }
 }
@@ -152,7 +152,7 @@ PREFETCH_BUDGET_DICT_HotpotQA_LARGE = {
         "iterative": 4.5,
         "iterretgen": 2.0,
         "flare": 2.5,
-        "selfrag": 3,
+        "selfrag": 3.0,
     }
 }
 
