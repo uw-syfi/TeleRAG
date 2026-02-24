@@ -41,9 +41,17 @@ This will build a docker image named `telerag`.
 
 ### Run with Docker
 
+> **Note**: If you are going to run the 8 GPU experiments, please set the
+> memory limit of the container to at least 900 GB (better to be even larger).
+>Here is the recommended command:
+>
+> ```bash
+> docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -m 1200g --oom-kill-disable -v "$(pwd)":/app -v /path/to/hf_models:/hf_models -v /path/to/TeleRAG-Dataset:/data/ telerag:latest
+> ```
+
 To start a container, run this at the root directory of the repository: (replace `/path/to/hf_models` and `/path/to/TeleRAG-Dataset` with the paths to your hf_models and TeleRAG-Dataset directories)
 
-```
+```bash
 docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -v "$(pwd)":/app -v /path/to/hf_models:/hf_models -v /path/to/TeleRAG-Dataset:/data/ telerag:latest
 ```
 
