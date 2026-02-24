@@ -1,5 +1,9 @@
 # Artifact Evaluation Documentation
 
+## Introduction
+
+This is the documentation for the artifact evaluation of TeleRAG. Our library is called `ragacc` (RAG Acceleration), while the baseline is faiss (https://github.com/facebookresearch/faiss).
+
 ## Installation and Setup
 
 ### Prerequisites
@@ -24,7 +28,6 @@ huggingface-cli download llama3/Meta-Llama-3-8B-Instruct-hf --local-dir models/l
 huggingface-cli download llama3/Meta-Llama-3.2-3B-Instruct --local-dir models/llama3/Meta-Llama-3.2-3B-Instruct
 huggingface-cli download mistralai/Mistral-Small-22B --local-dir models/Mistral-Small-22B
 ```
-
 
 ### Install with Docker
 
@@ -72,8 +75,10 @@ tmux attach
 
 The whole project uses GNU Make to manage all scripts and dependencies. There are two kinds of main targets:
 
-- Experiement targets: `4090`, `h100`, and `h200` for the evaluations on the corresponding GPUs.
-- Plotting targets: `4090-plots`, `h100-plots`, and `h200-plots` for plotting the results of the corresponding GPUs.
+- Experiement targets: `4090`, `h100`, and `h200` for the evaluations on the corresponding GPUs. The results will be saved in the `evaluation` directory.
+- Plotting targets: `4090-plots`, `h100-plots`, and `h200-plots` for plotting the results of the corresponding GPUs. The plots will be saved in the `figure` directory. See [Description of the Plots](#description-of-the-plots) for more details.
+
+**Please, do not run experiments in parallel (e.g., `make ... -j` or `make ... & make ...`) as it will cause PCIe bandwidth contention and performance degradation.**
 
 For example, if you want to run all the experiments on h100, you can run this:
 
@@ -87,8 +92,17 @@ If you want to run all the experiments on h100 and plot the results, you can run
 make h100-plots
 ```
 
-#### Potential Problems
+#### Potential Problems in Evaluation
+
+Most of the problems are related to the process management of Docker. **If you encounter any problems, you may first try to restart the container with `docker stop telerag-ae` and `docker start telerag-ae`.** For example, these are the problems we have encountered:
 
 - `AttributeError: 'RAGAcc' object has no attribute 'llm_service_addr'`: This is likely because some subprocesses failed to start. You should check **outside the container** if any subprocesses starts with `python3 -m ragacc...` is still occupying the GPU. If so, you should kill them by restarting the container with `docker stop telerag-ae` and `docker start telerag-ae`.
 - `RuntimeError: No CUDA GPUs are available`: This is likely because of some issue with the CUDA context. You can try to run `nvidia-smi` to check if the CUDA is available. If not, you can try to restart the container with `docker stop telerag-ae` and `docker start telerag-ae`.
 
+#### Potential Problems in Plotting
+
+If you find that the plots is different from the original one, it is likely because of the influence of other processes. For example, we found that the pre-retrieval LLM time for ragacc can sometimes be longer than twice the faiss time.
+
+## Description of the Plots
+
+TODO: add the name to plot mapping.
