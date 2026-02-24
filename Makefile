@@ -5,7 +5,7 @@ GPU_ID ?= 0
 
 # --- H100 Evaluation ---
 .PHONY: h100 h100-plots
-h100: hit_rate llama_8b_batch mistral_22b_batch llama_8b_nprobe
+h100: hit_rate llama_8b_batch mistral_22b_batch
 h100-plots: plot_batch_8b plot_batch_22b plot_retrieval_speedups_h100 plot_h100_8b_breakdown
 
 # --- Hit Rate Evaluation ---
@@ -30,13 +30,10 @@ evaluation/hit_rate/hit_rate_h100_8b.json: calculate_hit_rate.py ./artifact_eval
 	./artifact_evaluation/hit_rate/run_calculate_hit_rate_h100_8b.sh $(GPU_ID) $@
 
 # --- Llama 8B Evaluation ---
-.PHONY: llama_8b_batch llama_8b_batch_faiss llama_8b_batch_ragacc plot_batch_8b llama_8b_nprobe llama_8b_nprobe_faiss llama_8b_nprobe_ragacc
+.PHONY: llama_8b_batch llama_8b_batch_faiss llama_8b_batch_ragacc plot_batch_8b
 
 llama_8b_batch: llama_8b_batch_faiss llama_8b_batch_ragacc
 plot_batch_8b: figure/h100_batch_per_pipeline.pdf
-llama_8b_nprobe: llama_8b_nprobe_faiss llama_8b_nprobe_ragacc
-llama_8b_nprobe_faiss: evaluation/h100/llama_8b_nprobe/nq_faiss_topk_3_ndata_1024.csv
-llama_8b_nprobe_ragacc: evaluation/h100/llama_8b_nprobe/nq_ragacc_topk_3_ndata_1024.csv
 llama_8b_batch_faiss: evaluation/h100/llama_8b_batch/nq_faiss_topk_3_ndata_1024.csv
 llama_8b_batch_ragacc: evaluation/h100/llama_8b_batch/nq_ragacc_mini_greedy_topk_3_ndata_1024.csv
 
@@ -61,24 +58,7 @@ figure/h100_8b_breakdown.pdf: evaluation/h100/llama_8b_batch/nq_faiss_topk_3_nda
 		--ragacc evaluation/h100/llama_8b_batch/nq_ragacc_mini_greedy_topk_3_ndata_1024.csv \
 		--output $@
 
-evaluation/h100/llama_8b_nprobe/nq_faiss_topk_3_ndata_1024.csv: artifact_evaluation/h100/llama_8b_nprobe.sh
-	@mkdir -p $(@D)
-	./artifact_evaluation/h100/llama_8b_nprobe.sh faiss
-
-evaluation/h100/llama_8b_nprobe/nq_ragacc_topk_3_ndata_1024.csv: artifact_evaluation/h100/llama_8b_nprobe.sh
-	@mkdir -p $(@D)
-	./artifact_evaluation/h100/llama_8b_nprobe.sh ragacc
-
 plot_retrieval_speedups_h100: figure/retrieval_speedups_h100.pdf
-
-figure/retrieval_speedups_h100.pdf: evaluation/h100/llama_8b_nprobe/nq_faiss_topk_3_ndata_1024.csv \
-                                    evaluation/h100/llama_8b_nprobe/nq_ragacc_topk_3_ndata_1024.csv plot_scripts/plot_retrieval_speedup.py
-	@mkdir -p $(@D)
-	python3 plot_scripts/plot_retrieval_speedup.py \
-		--faiss evaluation/h100/llama_8b_nprobe/nq_faiss_topk_3_ndata_1024.csv \
-		--ragacc evaluation/h100/llama_8b_nprobe/nq_ragacc_topk_3_ndata_1024.csv \
-		--name "H100" \
-		--output $@
 
 # --- Mistral 22B Evaluation ---
 .PHONY: mistral_22b_batch mistral_22b_batch_faiss mistral_22b_batch_ragacc plot_batch_22b
@@ -159,9 +139,9 @@ evaluation/h200/llama_8b_4_gpu_prefetch_only/nq_ragacc_mini_greedy_topk_3_ndata_
 	./artifact_evaluation/h200/llama_8b_4_gpu_prefetch_only.sh ragacc
 
 # --- 4090 Evaluation ---
-.PHONY: 4090 4090_llama_3b 4090_llama_3b_faiss 4090_llama_3b_ragacc 4090_llama_8b 4090_llama_8b_faiss 4090_llama_8b_ragacc 4090_llama_3b_nprobe 4090_llama_3b_nprobe_faiss 4090_llama_3b_nprobe_ragacc plot_rtx4090_3b plot_rtx4090_8b 4090-plots plot_retrieval_speedups_rtx4090
+.PHONY: 4090 4090_llama_3b 4090_llama_3b_faiss 4090_llama_3b_ragacc 4090_llama_8b 4090_llama_8b_faiss 4090_llama_8b_ragacc plot_rtx4090_3b plot_rtx4090_8b 4090-plots plot_retrieval_speedups_rtx4090
 
-4090: 4090_llama_3b 4090_llama_3b_nprobe 4090_llama_8b
+4090: 4090_llama_3b 4090_llama_8b
 4090-plots: plot_rtx4090_3b plot_rtx4090_8b plot_retrieval_speedups_rtx4090
 
 4090_llama_3b: 4090_llama_3b_faiss 4090_llama_3b_ragacc
@@ -237,27 +217,4 @@ figure/rtx4090_8b.pdf: evaluation/4090/llama_8b/nq_faiss_topk_3_ndata_1024.csv \
 		--ragacc_hotpot evaluation/4090/llama_8b/hotpotqa_ragacc_topk_3_ndata_1024.csv \
 		--faiss_trivia evaluation/4090/llama_8b/triviaqa_faiss_topk_3_ndata_1024.csv \
 		--ragacc_trivia evaluation/4090/llama_8b/triviaqa_ragacc_topk_3_ndata_1024.csv \
-		--output $@
-
-4090_llama_3b_nprobe: 4090_llama_3b_nprobe_faiss 4090_llama_3b_nprobe_ragacc
-4090_llama_3b_nprobe_faiss: evaluation/4090/llama_3b_nprobe/nq_faiss_topk_3_ndata_1024.csv
-4090_llama_3b_nprobe_ragacc: evaluation/4090/llama_3b_nprobe/nq_ragacc_topk_3_ndata_1024.csv
-
-evaluation/4090/llama_3b_nprobe/nq_faiss_topk_3_ndata_1024.csv: artifact_evaluation/4090/llama_3b_nprobe.sh
-	@mkdir -p $(@D)
-	./artifact_evaluation/4090/llama_3b_nprobe.sh faiss
-
-evaluation/4090/llama_3b_nprobe/nq_ragacc_topk_3_ndata_1024.csv: artifact_evaluation/4090/llama_3b_nprobe.sh
-	@mkdir -p $(@D)
-	./artifact_evaluation/4090/llama_3b_nprobe.sh ragacc
-
-plot_retrieval_speedups_rtx4090: figure/retrieval_speedups_rtx4090.pdf
-
-figure/retrieval_speedups_rtx4090.pdf: evaluation/4090/llama_3b_nprobe/nq_faiss_topk_3_ndata_1024.csv \
-                                       evaluation/4090/llama_3b_nprobe/nq_ragacc_topk_3_ndata_1024.csv plot_scripts/plot_retrieval_speedup.py
-	@mkdir -p $(@D)
-	python3 plot_scripts/plot_retrieval_speedup.py \
-		--faiss evaluation/4090/llama_3b_nprobe/nq_faiss_topk_3_ndata_1024.csv \
-		--ragacc evaluation/4090/llama_3b_nprobe/nq_ragacc_topk_3_ndata_1024.csv \
-		--name "RTX 4090" \
 		--output $@
