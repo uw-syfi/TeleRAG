@@ -122,4 +122,22 @@ If you find that the plots is different from the original one, it is likely beca
 
 ## Description of the Plots
 
-TODO: add the name to plot mapping.
+### 4090 Plots
+
+- `figure/rtx4090_3b.pdf`: Figure 9(a), end-to-end latency speedup with Llama-3.2-3B.
+- `figure/rtx4090_8b.pdf`: Figure 9(b), end-to-end latency speedup with Llama-3-8B.
+
+### H100 Plots
+
+- `figure/h100_batch_per_pipeline.pdf`: Figure 10(a), end-to-end throughput on Llama-3-8B.
+- `figure/h100_batch_per_pipeline_22b.pdf`: Figure 10(b), end-to-end throughput on Mistral-Small-22B.
+- `figure/h100_8b_breakdown.pdf`: Figure 12, latency breakdown for Llama-3-8B on NQ with an
+H100 GPU in different batch sizes. nprobe is 256.
+
+### H200 Plots
+
+- `figure/h200_multi_gpu_nq_8b.pdf`: Figure 11(a), multi-GPU throughput on NQ with Llama-3-8B.
+- `figure/h200_multi_gpu_hotpotqa_8b.pdf`: Figure 11(b), multi-GPU throughput on HotpotQA with Llama-3-8B.
+- `figure/h200_multi_gpu_triviaqa_8b.pdf`: Figure 11(c), multi-GPU throughput on TriviaQA with Llama-3-8B.
+- `figure/h200_throughput_nq_8b.pdf`: Figure 13, throughput of TELERAG on the NQ dataset with different numbers of H200 GPUs (with and without cache).
+- `figure/rag_schedule_overhead.pdf`: Figure 14, comparison of end-to-end latency for prefetching and cache-aware schedulers on 4 H200 GPUs.
