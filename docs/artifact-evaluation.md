@@ -8,6 +8,12 @@ This is the documentation for the artifact evaluation of TeleRAG. Our library is
 
 ### Prerequisites
 
+#### Clone This Repository
+
+```bash
+git clone https://github.com/uw-syfi/TeleRAG.git
+```
+
 #### Models and Datasets
 
 Please make sure the models are placed in a directory, for example `/data/hf_models`.
@@ -23,6 +29,8 @@ You should also download the dataset `lauyeeyu/TeleRAG-Dataset`.
 You may use the following script at anywhere (preferably in a directory outside the repo) to download the models and the dataset:
 
 ```bash
+mkdir -p models/llama3
+mkdir -p TeleRAG-Dataset
 huggingface-cli download lauyeeyu/TeleRAG-Dataset --local-dir TeleRAG-Dataset
 huggingface-cli download llama3/Meta-Llama-3-8B-Instruct-hf --local-dir models/llama3/Meta-Llama-3-8B-Instruct-hf
 huggingface-cli download llama3/Meta-Llama-3.2-3B-Instruct --local-dir models/llama3/Meta-Llama-3.2-3B-Instruct
@@ -34,6 +42,7 @@ huggingface-cli download mistralai/Mistral-Small-22B --local-dir models/Mistral-
 To build the docker image, run this at the root directory of the repository:
 
 ```bash
+cd TeleRAG  # If you are not in the root directory
 docker build -t telerag .
 ```
 
