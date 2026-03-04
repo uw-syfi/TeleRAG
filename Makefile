@@ -3,6 +3,12 @@
 # --- Configuration ---
 GPU_ID ?= 0
 
+# --- Smoke Test ---
+.PHONY: smoke-test
+smoke-test:
+	@mkdir -p evaluation/smoke_test
+	./artifact_evaluation/smoke_test.sh $(GPU_ID)
+
 # --- H100 Evaluation ---
 .PHONY: h100 h100-plots
 h100: hit_rate llama_8b_batch mistral_22b_batch

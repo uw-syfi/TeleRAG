@@ -5,8 +5,6 @@ FROM nvidia/cuda:${CUDA_VERSION}-cudnn-devel-ubuntu22.04
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# --- FIX: Install Python and pip ---
-# This ensures pip is available for subsequent steps
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         python3 \
@@ -20,29 +18,22 @@ RUN apt-get update && \
         vim \
     && rm -rf /var/lib/apt/lists/*
 
-# Use 'python3' command explicitly from now on
 RUN python3 -m pip install --upgrade pip
-# -----------------------------------
 
-# Set the working directory
 WORKDIR /app
 
-# Install dependencies (Best practice for caching):
-# 1. Copy only the requirements file first.
 COPY requirements.txt .
 
-# 2. Install dependencies. Using --no-cache-dir speeds things up and saves space.
 RUN pip install --upgrade pip
 RUN python3 -m pip install git+https://github.com/ozeliger/pyairports
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install flashinfer==0.1.6 -i https://flashinfer.ai/whl/cu121/torch2.4/
 RUN pip install faiss-cpu==1.9.0 matplotlib
 
-# Copy the rest of the application code into the container.
-# This should include your experiment scripts, data, and configuration.
 COPY . .
-RUN git submodule update --init --recursive
-COPY 3rdparty/sglang /repos/sglang
+RUN git submodule update --init --recursive && \
+    mkdir -p /repos && \
+    cp -r 3rdparty/sglang /repos/sglang
 RUN cd /repos/sglang && pip install -e "python[all]"
 COPY . /repos/ragacc
 RUN cd /repos/ragacc && pip install -e .
