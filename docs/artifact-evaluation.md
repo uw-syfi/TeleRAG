@@ -156,6 +156,17 @@ The whole project uses GNU Make to manage all scripts and dependencies. There ar
 > [!CAUTION]
 > Do not run experiments in parallel (e.g., `make ... -j` or `make ... & make ...`), as this will cause PCIe bandwidth contention and performance degradation.
 
+The following table summarizes what each target runs:
+
+| Target | GPU | What it runs | Figures |
+|--------|-----|-------------|---------|
+| `make 4090` | 1x RTX 4090 | Single-sample evaluation with Llama-3.2-3B and Llama-3-8B using both FAISS and TeleRAG on NQ, HotpotQA, and TriviaQA (6 pipelines each). | — |
+| `make 4090-plots` | — | Generates plots from `make 4090` results. | Fig. 9(a), 9(b) |
+| `make h100` | 1x H100 | Hit rate calculation (3B, 8B, 22B), batch evaluation with Llama-3-8B (batch sizes 1/2/4/8) and Mistral-Small-22B using both FAISS and TeleRAG on NQ (6 pipelines each). | — |
+| `make h100-plots` | — | Generates plots from `make h100` results. | Fig. 10(a), 10(b), 12 |
+| `make h200` | 4--8x H200 | Multi-GPU evaluation with Llama-3-8B on NQ, HotpotQA, and TriviaQA (8 GPUs), plus ablation studies on 4 GPUs (no scheduling, prefetch only). | — |
+| `make h200-plots` | — | Generates plots from `make h200` results. | Fig. 11(a--c), 13, 14 |
+
 For example, to run all experiments on H100:
 
 ```bash
