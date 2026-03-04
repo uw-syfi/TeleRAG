@@ -1,6 +1,6 @@
 # Artifact Evaluation Documentation
 
-TeleRAG is an efficient RAG inference system that reduces retrieval latency and improves end-to-end throughput via *lookahead retrieval*, a prefetching mechanism that predicts required data and transfers them from CPU to GPU in parallel with LLM generation. This artifact reproduces Figures 9--14 of the paper.
+TeleRAG is an efficient RAG inference system that reduces retrieval latency and improves end-to-end throughput via *lookahead retrieval*, a prefetching mechanism that predicts required data and transfers them from CPU to GPU in parallel with LLM generation. This artifact reproduces Table 3 and Figures 9--14 of the paper.
 
 ### Repository Overview
 
@@ -162,7 +162,7 @@ The following table summarizes what each target runs:
 |--------|-----|-------------|---------|
 | `make 4090` | 1x RTX 4090 | Single-sample evaluation with Llama-3.2-3B and Llama-3-8B using both FAISS and TeleRAG on NQ, HotpotQA, and TriviaQA (6 pipelines each). | — |
 | `make 4090-plots` | — | Generates plots from `make 4090` results. | Fig. 9(a), 9(b) |
-| `make h100` | 1x H100 | Hit rate calculation (3B, 8B, 22B), batch evaluation with Llama-3-8B (batch sizes 1/2/4/8) and Mistral-Small-22B using both FAISS and TeleRAG on NQ (6 pipelines each). | — |
+| `make h100` | 1x H100 | Hit rate calculation (3B, 8B, 22B), batch evaluation with Llama-3-8B (batch sizes 1/2/4/8) and Mistral-Small-22B using both FAISS and TeleRAG on NQ (6 pipelines each). | Table 3 |
 | `make h100-plots` | — | Generates plots from `make h100` results. | Fig. 10(a), 10(b), 12 |
 | `make h200` | 4--8x H200 | Multi-GPU evaluation with Llama-3-8B on NQ, HotpotQA, and TriviaQA (8 GPUs), plus ablation studies on 4 GPUs (no scheduling, prefetch only). | — |
 | `make h200-plots` | — | Generates plots from `make h200` results. | Fig. 11(a--c), 13, 14 |
@@ -211,10 +211,12 @@ If the plots differ from the originals, it is likely due to interference from ot
 - `figure/h200_throughput_nq_8b.pdf`: Figure 13, throughput of TeleRAG on the NQ dataset with different numbers of H200 GPUs (with and without cache).
 - `figure/rag_schedule_overhead.pdf`: Figure 14, comparison of end-to-end latency for prefetching and cache-aware schedulers on 4 H200 GPUs.
 
-### Hit Rate
+### Hit Rate (Table 3)
 
-- `evaluation/hit_rate/hit_rate_4090_3b.json`: Prefetch hit rate for Llama-3.2-3B on RTX 4090.
-- `evaluation/hit_rate/hit_rate_h100_8b.json`: Prefetch hit rate for Llama-3-8B on H100.
+The hit rate results reproduce Table 3 of the paper, which shows prefetch budgets and cluster hit rates per pipeline on NQ with nprobe = 256.
+
+- `evaluation/hit_rate/hit_rate_4090_3b.json`: Prefetch hit rate for Llama-3.2-3B on RTX 4090 (Table 3, RTX4090 column).
+- `evaluation/hit_rate/hit_rate_h100_8b.json`: Prefetch hit rate for Llama-3-8B on H100 (Table 3, H100 column).
 - `evaluation/hit_rate/hit_rate_h100_22b.json`: Prefetch hit rate for Mistral-Small-22B on H100.
 
 > [!NOTE]
