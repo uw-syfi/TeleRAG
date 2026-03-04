@@ -9,7 +9,7 @@
 
 # --- Configuration ---
 DATA_DIR="/data/rag_data/rag_output" # Set your data directory here
-MODEL_PATH="/data/llama3/Meta-Llama-3-8B-Instruct-hf" # Set your model path here
+MODEL_PATH="/data/Llama-3-8B" # Set your model path here
 
 GPU_MODEL="rtx4090" # or "rtx4090", "a6000"
 NPROBE=256

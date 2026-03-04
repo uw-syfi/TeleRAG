@@ -17,7 +17,7 @@ TOPK=3
 VM_SIZE=12
 N_SAMPLES=16
 N_RUNS=1
-MODEL=llama3/Meta-Llama-3-8B-Instruct-hf
+MODEL=Llama-3-8B
 LOG_DIR=evaluation/smoke_test
 
 echo "=================================================="

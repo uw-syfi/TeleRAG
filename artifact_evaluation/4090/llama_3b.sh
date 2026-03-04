@@ -13,7 +13,7 @@ TOPK=3
 VM_SIZE=10
 N_SAMPLES=1024
 N_RUNS=5
-MODEL=llama3/Meta-Llama-3.2-3B-Instruct
+MODEL=Llama-3.2-3B
 
 echo "Index type: ${INDEX_TYPE}"
 echo "Nprobe: ${NPROBE}"

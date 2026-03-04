@@ -4,7 +4,7 @@ def add_args_for_batch(parser):
     IndexArgs.add_cli_args(parser)
     parser.add_argument(
         '--tokenizer-model-path',
-        default="/data/llama3/Meta-Llama-3-8B-Instruct-hf",
+        default="/data/Llama-3-8B",
         help='Root directory for the tokenizer model',
     )
     parser.add_argument(

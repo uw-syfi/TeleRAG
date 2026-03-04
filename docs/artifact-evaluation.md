@@ -80,8 +80,8 @@ export TELERAG_DATA_DIR=/data
 
 hf download lauyeeyu/TeleRAG-Dataset --repo-type=dataset --local-dir ${TELERAG_DATA_DIR}/TeleRAG-Dataset
 
-hf download meta-llama/Llama-3.2-3B-Instruct --local-dir ${TELERAG_DATA_DIR}/models/llama3/Meta-Llama-3.2-3B-Instruct
-hf download meta-llama/Meta-Llama-3-8B-Instruct --local-dir ${TELERAG_DATA_DIR}/models/llama3/Meta-Llama-3-8B-Instruct-hf
+hf download meta-llama/Llama-3.2-3B-Instruct --local-dir ${TELERAG_DATA_DIR}/models/Llama-3.2-3B
+hf download meta-llama/Meta-Llama-3-8B-Instruct --local-dir ${TELERAG_DATA_DIR}/models/Llama-3-8B
 hf download mistralai/Mistral-Small-Instruct-2409 --local-dir ${TELERAG_DATA_DIR}/models/Mistral-Small-22B
 ```
 
