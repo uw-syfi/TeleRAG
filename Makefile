@@ -12,15 +12,20 @@ smoke-test:
 # --- H100 Evaluation ---
 .PHONY: h100 h100-plots
 h100: hit_rate llama_8b_batch mistral_22b_batch
-h100-plots: plot_batch_8b plot_batch_22b plot_retrieval_speedups_h100 plot_h100_8b_breakdown
+h100-plots: plot_batch_8b plot_batch_22b plot_retrieval_speedups_h100 plot_h100_8b_breakdown plot_hit_rate_table
 
 # --- Hit Rate Evaluation ---
-.PHONY: all hit_rate hit_rate_4090_3b hit_rate_h100_22b hit_rate_h100_8b
+.PHONY: all hit_rate hit_rate_4090_3b hit_rate_h100_22b hit_rate_h100_8b plot_hit_rate_table
 
 hit_rate: hit_rate_4090_3b hit_rate_h100_22b hit_rate_h100_8b
+plot_hit_rate_table: figure/hit_rate_table.pdf
 hit_rate_4090_3b: evaluation/hit_rate/hit_rate_4090_3b.json
 hit_rate_h100_22b: evaluation/hit_rate/hit_rate_h100_22b.json
 hit_rate_h100_8b: evaluation/hit_rate/hit_rate_h100_8b.json
+
+figure/hit_rate_table.pdf: plot_scripts/plot_hit_rate_table.py
+	@mkdir -p $(@D)
+	python3 plot_scripts/plot_hit_rate_table.py
 
 evaluation/hit_rate/hit_rate_4090_3b.json: calculate_hit_rate.py ./artifact_evaluation/hit_rate/run_calculate_hit_rate_4090_3b.sh
 	@mkdir -p $(@D)
