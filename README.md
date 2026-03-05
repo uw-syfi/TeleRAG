@@ -38,7 +38,7 @@ All experiments are orchestrated via `make`. Do not run targets in parallel (`-j
 | `make 4090` | 1x RTX 4090 | Single-sample latency with Llama-3.2-3B and Llama-3-8B using FAISS and TeleRAG on NQ, HotpotQA, and TriviaQA. |
 | `make 4090-plots` | — | Generates Figures 9(a,b) from `make 4090` results. |
 | `make h100` | 1x H100 | Hit rate calculation + batch throughput with Llama-3-8B and Mistral-Small-22B using FAISS and TeleRAG on NQ. |
-| `make h100-plots` | — | Generates Figures 10(a,b) and 12 from `make h100` results. |
+| `make h100-plots` | — | Generates Figures 10(a,b) and 12, and Table 3 from `make h100` results. |
 | `make h200` | 4--8x H200 | Multi-GPU throughput with Llama-3-8B on NQ, HotpotQA, and TriviaQA, plus scheduling ablations on 4 GPUs. |
 | `make h200-plots` | — | Generates Figures 11(a--c), 13, and 14 from `make h200` results. |
 | `make hit_rate` | 1x any | Prefetch hit rate calculation for 3B, 8B, and 22B models. |
