@@ -97,12 +97,6 @@ This will build a Docker image named `telerag`.
 
 ### Run with Docker
 
-To start a container, run this at the root directory of the repository:
-
-```bash
-docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -v "$(pwd)":/app -v ${TELERAG_DATA_DIR}/models:/hf_models -v ${TELERAG_DATA_DIR}/TeleRAG-Dataset:/data/ telerag:latest
-```
-
 > [!NOTE]
 > If you are going to run the 8 GPU experiments, please set the
 > memory limit of the container to at least 900 GB (better to be even larger).
@@ -111,6 +105,12 @@ docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -v "$(pwd)":/a
 > ```bash
 > docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -m 1200g --oom-kill-disable -v "$(pwd)":/app -v ${TELERAG_DATA_DIR}/models:/hf_models -v ${TELERAG_DATA_DIR}/TeleRAG-Dataset:/data/ telerag:latest
 > ```
+
+To start a container, run this at the root directory of the repository:
+
+```bash
+docker run --gpus all --cap-add=SYS_NICE -d -it --name telerag-ae -v "$(pwd)":/app -v ${TELERAG_DATA_DIR}/models:/hf_models -v ${TELERAG_DATA_DIR}/TeleRAG-Dataset:/data/ telerag:latest
+```
 
 This will start a container named `telerag-ae`.
 
