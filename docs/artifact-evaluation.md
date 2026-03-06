@@ -150,7 +150,7 @@ This should complete in ~5 minutes. If it finishes without errors, the environme
 
 The whole project uses GNU Make to manage all scripts and dependencies. There are two kinds of main targets:
 
-- Experiment targets: `4090`, `h100`, and `h200` run evaluations on the corresponding GPUs. Results are saved in the `evaluation/` directory.
+- Experiment targets: `4090`, `h100`, and `h200` run evaluations on the corresponding GPUs. Results are saved in the `evaluation/` directory. This will take up to a whole day (24 hours) to complete per machine.
 - Plotting targets: `4090-plots`, `h100-plots`, and `h200-plots` generate figures from the evaluation results. Plots are saved in the `figure/` directory. See [Description of the Plots and Expected Results](#description-of-the-plots-and-expected-results) for details.
 
 > [!CAUTION]
@@ -183,7 +183,7 @@ make h100-plots
 
 Most problems are related to Docker process management. **If you encounter any issues, first try restarting the container with `docker stop telerag-ae` and `docker start telerag-ae`.** Known issues include:
 
-- `AttributeError: 'RAGAcc' object has no attribute 'llm_service_addr'`: This is likely because some subprocesses failed to start. Check **outside the container** whether any processes starting with `python3 -m ragacc...` are still occupying the GPU. If so, restart the container.
+- `AttributeError: 'RAGAcc' object has no attribute 'llm_service_addr'`: This is likely because some subprocesses failed to start. Check **outside the container** whether any processes starting with `python3 -m ragacc...` are still occupying the GPU. If so, kill the remaining processes with `pkill -f "rag_service\|llm_service\|retrieval_service"`
 - `RuntimeError: No CUDA GPUs are available`: This is likely due to a CUDA context issue. Run `nvidia-smi` to check whether CUDA is available. If not, restart the container.
 
 #### Potential Problems in Plotting
