@@ -30,7 +30,7 @@ Please refer to [docs/artifact-evaluation.md](docs/artifact-evaluation.md) for d
 
 ### Make Targets
 
-All experiments are orchestrated via `make`. Do not run targets in parallel (`-j`) due to PCIe bandwidth contention.
+All experiments are orchestrated via `make`. Do not run targets in parallel (running two `make` commands at the same time) due to PCIe bandwidth contention.
 
 | Target | GPU | Description |
 |--------|-----|-------------|

@@ -2,6 +2,7 @@
 
 # --- Configuration ---
 GPU_ID ?= 0
+.NOTPARALLEL:
 
 # --- Smoke Test ---
 .PHONY: smoke-test

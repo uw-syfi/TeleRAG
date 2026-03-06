@@ -154,7 +154,7 @@ The whole project uses GNU Make to manage all scripts and dependencies. There ar
 - Plotting targets: `4090-plots`, `h100-plots`, and `h200-plots` generate figures from the evaluation results. Plots are saved in the `figure/` directory. See [Description of the Plots and Expected Results](#description-of-the-plots-and-expected-results) for details.
 
 > [!CAUTION]
-> Do not run experiments in parallel (e.g., `make ... -j` or `make ... & make ...`), as this will cause PCIe bandwidth contention and performance degradation.
+> Do not run experiments in parallel (e.g., `make ... & make ...`), as this will cause PCIe bandwidth contention and performance degradation.
 
 The following table summarizes what each target runs:
 
