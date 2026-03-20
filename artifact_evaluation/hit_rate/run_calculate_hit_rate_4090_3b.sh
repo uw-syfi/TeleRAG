@@ -23,7 +23,7 @@ VM_SIZE=10.0
 
 echo "=================================================="
 echo "Starting Cluster Prefetch Hit Rate Calculation"
-echo "This will run for all pipelines on datasets: hotpotqa, triviaqa, nq"
+echo "This will run for all pipelines on dataset: nq"
 echo "Data Dir: ${DATA_DIR}"
 echo "Model Path: ${MODEL_PATH}"
 echo "GPU Model: ${GPU_MODEL}"
