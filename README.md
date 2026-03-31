@@ -2,6 +2,9 @@
 
 ![TeleRAG-design](assets/design.svg)
 
+[![arXiv](https://img.shields.io/badge/arXiv-2502.20969-b31b1b.svg)](https://arxiv.org/abs/2502.20969)
+[![DOI](https://zenodo.org/badge/1159746702.svg)](https://doi.org/10.5281/zenodo.19361856)
+
 [TeleRAG][telerag-paper] is an efficient inference system that reduces latency and improves throughput with minimal GPU memory requirements. The core innovation of TeleRAG is *lookahead retrieval*, a prefetching mechanism that predicts required data and transfers them from CPU to GPU in parallel with LLM generation. In addition, TeleRAG adopts a prefetching scheduler and a cache-aware scheduler to support efficient multi-GPU inference with minimal overhead.
 
 [telerag-paper]: https://arxiv.org/abs/2502.20969
